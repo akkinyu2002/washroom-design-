@@ -5,6 +5,7 @@ import { Float, Environment, MeshDistortMaterial } from '@react-three/drei'
 function FeatureOrb() {
   const ref = useRef()
   useFrame((state) => {
+    if (!ref.current) return
     ref.current.rotation.y = state.clock.elapsedTime * 0.2
     ref.current.rotation.z = Math.sin(state.clock.elapsedTime * 0.3) * 0.1
   })

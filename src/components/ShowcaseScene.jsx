@@ -1,11 +1,11 @@
 import { useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Float, Environment, OrbitControls, RoundedBox } from '@react-three/drei'
-import * as THREE from 'three'
 
 function Cabinet({ position = [0, 0, 0] }) {
   const group = useRef()
   useFrame((state) => {
+    if (!group.current) return
     group.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.3) * 0.15
   })
 
@@ -23,8 +23,8 @@ function Cabinet({ position = [0, 0, 0] }) {
       ))}
       {/* Gold handles */}
       {[-0.4, 0.4].map((y, i) => (
-        <mesh key={`h${i}`} position={[0, y, 0.45]}>
-          <capsuleGeometry args={[0.02, 0.4, 8, 16]} rotation={[0, 0, Math.PI / 2]} />
+        <mesh key={`h${i}`} position={[0, y, 0.45]} rotation={[0, 0, Math.PI / 2]}>
+          <capsuleGeometry args={[0.02, 0.4, 8, 16]} />
           <meshStandardMaterial color="#c9a96e" roughness={0.2} metalness={0.9} />
         </mesh>
       ))}
@@ -54,6 +54,7 @@ function Cabinet({ position = [0, 0, 0] }) {
 function Vanity({ position = [0, 0, 0] }) {
   const group = useRef()
   useFrame((state) => {
+    if (!group.current) return
     group.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.25 + 1) * 0.12
   })
 
@@ -95,6 +96,7 @@ function Vanity({ position = [0, 0, 0] }) {
 function ShelfUnit({ position = [0, 0, 0] }) {
   const group = useRef()
   useFrame((state) => {
+    if (!group.current) return
     group.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.2 + 2) * 0.1
   })
 
