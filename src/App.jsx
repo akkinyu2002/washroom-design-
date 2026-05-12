@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import HeroScene from './components/HeroScene'
 import ShowcaseScene from './components/ShowcaseScene'
 import FeatureScene from './components/FeatureScene'
+import SceneBoundary, { SceneFallback } from './components/SceneBoundary'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -126,9 +127,11 @@ export default function App() {
       {/* Hero */}
       <section ref={heroRef} className="hero" id="hero">
         <div className="hero__canvas">
-          <Suspense fallback={<Loader />}>
-            <HeroScene />
-          </Suspense>
+          <SceneBoundary fallback={<SceneFallback label="3D hero unavailable" />}>
+            <Suspense fallback={<Loader />}>
+              <HeroScene />
+            </Suspense>
+          </SceneBoundary>
         </div>
         <div className="hero__overlay">
           <p className="hero__tag">Luxury Bathroom Design</p>
@@ -174,9 +177,11 @@ export default function App() {
       <section className="section features" id="features">
         <div className="features__layout">
           <div className="features__canvas">
-            <Suspense fallback={<Loader />}>
-              <FeatureScene />
-            </Suspense>
+            <SceneBoundary fallback={<SceneFallback label="3D feature preview unavailable" />}>
+              <Suspense fallback={<Loader />}>
+                <FeatureScene />
+              </Suspense>
+            </SceneBoundary>
           </div>
           <div className="features__list">
             <div className="reveal">
@@ -207,9 +212,11 @@ export default function App() {
           </p>
         </div>
         <div className="showcase__canvas">
-          <Suspense fallback={<Loader />}>
-            <ShowcaseScene />
-          </Suspense>
+          <SceneBoundary fallback={<SceneFallback label="3D showroom unavailable" />}>
+            <Suspense fallback={<Loader />}>
+              <ShowcaseScene />
+            </Suspense>
+          </SceneBoundary>
         </div>
         <p className="showcase__hint">↻ Drag to rotate the showroom</p>
       </section>
