@@ -1,11 +1,16 @@
 import { useRef, useMemo } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Float, Environment, MeshDistortMaterial, MeshWobbleMaterial } from '@react-three/drei'
-import * as THREE from 'three'
+import { Float, Environment, MeshDistortMaterial, RoundedBox } from '@react-three/drei'
+
+function seededRandom(seed) {
+  const value = Math.sin(seed * 12.9898) * 43758.5453
+  return value - Math.floor(value)
+}
 
 function MarbleSphere({ position, scale = 1, speed = 0.3 }) {
   const ref = useRef()
   useFrame((state) => {
+    if (!ref.current) return
     ref.current.rotation.y += 0.003
     ref.current.rotation.x = Math.sin(state.clock.elapsedTime * speed) * 0.1
   })
@@ -28,6 +33,7 @@ function MarbleSphere({ position, scale = 1, speed = 0.3 }) {
 function GoldRing({ position, scale = 1 }) {
   const ref = useRef()
   useFrame((state) => {
+    if (!ref.current) return
     ref.current.rotation.x = state.clock.elapsedTime * 0.3
     ref.current.rotation.z = Math.sin(state.clock.elapsedTime * 0.5) * 0.3
   })
@@ -44,15 +50,15 @@ function GoldRing({ position, scale = 1 }) {
 function FloatingBox({ position, scale = 1, color = '#1a1917' }) {
   const ref = useRef()
   useFrame((state) => {
+    if (!ref.current) return
     ref.current.rotation.y += 0.005
     ref.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.4) * 0.15
   })
   return (
     <Float speed={1.2} rotationIntensity={0.5} floatIntensity={0.6}>
-      <mesh ref={ref} position={position} scale={scale}>
-        <roundedBoxGeometry args={[1.2, 1.6, 0.8, 4, 0.1]} />
+      <RoundedBox ref={ref} position={position} scale={scale} args={[1.2, 1.6, 0.8]} radius={0.1} smoothness={4}>
         <meshStandardMaterial color={color} roughness={0.3} metalness={0.1} />
-      </mesh>
+      </RoundedBox>
     </Float>
   )
 }
@@ -62,14 +68,15 @@ function Particles({ count = 80 }) {
   const positions = useMemo(() => {
     const pos = new Float32Array(count * 3)
     for (let i = 0; i < count; i++) {
-      pos[i * 3] = (Math.random() - 0.5) * 20
-      pos[i * 3 + 1] = (Math.random() - 0.5) * 20
-      pos[i * 3 + 2] = (Math.random() - 0.5) * 20
+      pos[i * 3] = (seededRandom(i + 1) - 0.5) * 20
+      pos[i * 3 + 1] = (seededRandom(i + 101) - 0.5) * 20
+      pos[i * 3 + 2] = (seededRandom(i + 201) - 0.5) * 20
     }
     return pos
   }, [count])
 
   useFrame((state) => {
+    if (!ref.current) return
     ref.current.rotation.y = state.clock.elapsedTime * 0.02
   })
 
