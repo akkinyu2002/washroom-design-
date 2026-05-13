@@ -5,6 +5,7 @@ import HeroScene from './components/HeroScene'
 import ShowcaseScene from './components/ShowcaseScene'
 import FeatureScene from './components/FeatureScene'
 import SceneBoundary, { SceneFallback } from './components/SceneBoundary'
+import FeatureIcon from './components/FeatureIcon'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -15,10 +16,10 @@ const galleryItems = [
 ]
 
 const features = [
-  { icon: '◈', title: 'Premium Materials', desc: 'Hand-selected marble, solid walnut, and brushed gold hardware crafted to last a lifetime.' },
-  { icon: '✦', title: 'Smart Storage', desc: 'Maximise every inch with clever compartments, hidden drawers, and modular shelf systems.' },
-  { icon: '◇', title: 'Beginner Friendly', desc: 'Easy-to-install designs with detailed guides — no contractor required for a luxury look.' },
-  { icon: '⬡', title: 'Timeless Design', desc: 'Clean lines and warm neutrals that complement any bathroom style for years to come.' },
+  { icon: 'materials', title: 'Premium Materials', desc: 'Hand-selected marble, solid walnut, and brushed gold hardware crafted to last a lifetime.' },
+  { icon: 'storage', title: 'Smart Storage', desc: 'Maximise every inch with clever compartments, hidden drawers, and modular shelf systems.' },
+  { icon: 'friendly', title: 'Beginner Friendly', desc: 'Easy-to-install designs with detailed guides — no contractor required for a luxury look.' },
+  { icon: 'timeless', title: 'Timeless Design', desc: 'Clean lines and warm neutrals that complement any bathroom style for years to come.' },
 ]
 
 const testimonials = [
@@ -190,7 +191,9 @@ export default function App() {
             </div>
             {features.map((f, i) => (
               <div className="feature-card" key={i} id={`feature-${i}`}>
-                <div className="feature-card__icon">{f.icon}</div>
+                <div className="feature-card__icon">
+                  <FeatureIcon kind={f.icon} />
+                </div>
                 <h3>{f.title}</h3>
                 <p>{f.desc}</p>
               </div>

@@ -212,11 +212,55 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; line-height
   box-shadow: 0 8px 40px rgba(0,0,0,0.3);
 }
 .feature-card__icon {
-  width: 48px; height: 48px; border-radius: 10px;
-  background: rgba(201, 169, 110, 0.1);
+  width: 58px; height: 58px; border-radius: 12px;
+  background:
+    linear-gradient(145deg, rgba(245, 240, 232, 0.13), rgba(201, 169, 110, 0.07)),
+    var(--color-surface-hover);
   display: flex; align-items: center; justify-content: center;
-  margin-bottom: 1rem; font-size: 1.3rem;
+  margin-bottom: 1rem; position: relative; transform-style: preserve-3d;
+  border: 1px solid rgba(201, 169, 110, 0.14);
+  box-shadow:
+    0 14px 24px rgba(0, 0, 0, 0.24),
+    inset 0 1px 0 rgba(245, 240, 232, 0.08);
+  transition: transform 0.35s var(--ease-luxury), border-color 0.35s var(--ease-smooth);
 }
+.feature-card__icon::before {
+  content: ''; position: absolute; inset: 8px; border-radius: 9px;
+  background: linear-gradient(145deg, rgba(201, 169, 110, 0.18), rgba(10, 10, 10, 0.08));
+  transform: translate3d(6px, 6px, -1px);
+  opacity: 0.65;
+}
+.feature-card:hover .feature-card__icon {
+  transform: translateY(-3px) rotateX(10deg) rotateY(-12deg);
+  border-color: rgba(201, 169, 110, 0.32);
+}
+.feature-icon {
+  width: 42px; height: 42px; position: relative; z-index: 1;
+  overflow: visible; filter: drop-shadow(0 8px 9px rgba(0, 0, 0, 0.28));
+}
+.feature-icon__shadow { fill: rgba(0, 0, 0, 0.28); }
+.feature-icon__top { fill: var(--color-gold-light); }
+.feature-icon__side { fill: var(--color-gold); }
+.feature-icon__left { fill: #9f8147; }
+.feature-icon__right { fill: #d3b273; }
+.feature-icon__glint { fill: rgba(245, 240, 232, 0.75); }
+.feature-icon__line,
+.feature-icon__handle,
+.feature-icon__check,
+.feature-icon__hand,
+.feature-icon__stand {
+  fill: none; stroke: var(--color-cream); stroke-width: 3;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+.feature-icon__handle,
+.feature-icon__check,
+.feature-icon__hand,
+.feature-icon__stand { stroke: var(--color-gold); }
+.feature-icon__ring {
+  fill: rgba(201, 169, 110, 0.15); stroke: var(--color-gold-light);
+  stroke-width: 5;
+}
+.feature-icon__face { fill: rgba(245, 240, 232, 0.16); }
 .feature-card h3 {
   font-size: 1.15rem; color: var(--color-cream); margin-bottom: 0.5rem;
 }
